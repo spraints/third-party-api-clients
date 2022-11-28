@@ -86,7 +86,10 @@ impl Orgs {
      * * `org: &str`
      */
     pub async fn get(&self, org: &str) -> Result<crate::types::OrganizationFull> {
-        let url = format!("/orgs/{}", crate::progenitor_support::encode_path(org),);
+        let url = format!(
+            "/orgs/{}",
+            crate::progenitor_support::encode_path(&org.to_string()),
+        );
 
         self.client.get(&url, None).await
     }
@@ -111,7 +114,10 @@ impl Orgs {
         org: &str,
         body: &crate::types::OrgsUpdateRequest,
     ) -> Result<crate::types::OrganizationFull> {
-        let url = format!("/orgs/{}", crate::progenitor_support::encode_path(org),);
+        let url = format!(
+            "/orgs/{}",
+            crate::progenitor_support::encode_path(&org.to_string()),
+        );
 
         self.client
             .patch(&url, Some(reqwest::Body::from(serde_json::to_vec(body)?)))
@@ -184,7 +190,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/orgs/{}/audit-log?{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             query_
         );
 
@@ -232,7 +238,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/orgs/{}/audit-log?{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             query_
         );
 
@@ -255,7 +261,7 @@ impl Orgs {
     pub async fn list_blocked_users(&self, org: &str) -> Result<Vec<crate::types::SimpleUser>> {
         let url = format!(
             "/orgs/{}/blocks",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
         );
 
         self.client.get(&url, None).await
@@ -275,7 +281,7 @@ impl Orgs {
     pub async fn list_all_blocked_users(&self, org: &str) -> Result<Vec<crate::types::SimpleUser>> {
         let url = format!(
             "/orgs/{}/blocks",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
         );
 
         self.client.get_all_pages(&url, None).await
@@ -298,8 +304,8 @@ impl Orgs {
     pub async fn check_blocked_user(&self, org: &str, username: &str) -> Result<()> {
         let url = format!(
             "/orgs/{}/blocks/{}",
-            crate::progenitor_support::encode_path(org),
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&org.to_string()),
+            crate::progenitor_support::encode_path(&username.to_string()),
         );
 
         self.client.get(&url, None).await
@@ -322,8 +328,8 @@ impl Orgs {
     pub async fn block_user(&self, org: &str, username: &str) -> Result<()> {
         let url = format!(
             "/orgs/{}/blocks/{}",
-            crate::progenitor_support::encode_path(org),
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&org.to_string()),
+            crate::progenitor_support::encode_path(&username.to_string()),
         );
 
         self.client.put(&url, None).await
@@ -346,8 +352,8 @@ impl Orgs {
     pub async fn unblock_user(&self, org: &str, username: &str) -> Result<()> {
         let url = format!(
             "/orgs/{}/blocks/{}",
-            crate::progenitor_support::encode_path(org),
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&org.to_string()),
+            crate::progenitor_support::encode_path(&username.to_string()),
         );
 
         self.client.delete(&url, None).await
@@ -374,7 +380,7 @@ impl Orgs {
     ) -> Result<Vec<crate::types::CredentialAuthorization>> {
         let url = format!(
             "/orgs/{}/credential-authorizations",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
         );
 
         self.client.get(&url, None).await
@@ -399,7 +405,7 @@ impl Orgs {
     ) -> Result<Vec<crate::types::CredentialAuthorization>> {
         let url = format!(
             "/orgs/{}/credential-authorizations",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
         );
 
         self.client.get_all_pages(&url, None).await
@@ -424,7 +430,7 @@ impl Orgs {
     pub async fn remove_saml_sso_authorization(&self, org: &str, credential_id: i64) -> Result<()> {
         let url = format!(
             "/orgs/{}/credential-authorizations/{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             crate::progenitor_support::encode_path(&credential_id.to_string()),
         );
 
@@ -462,7 +468,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/orgs/{}/failed_invitations?{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             query_
         );
 
@@ -486,7 +492,7 @@ impl Orgs {
     ) -> Result<Vec<crate::types::OrganizationInvitation>> {
         let url = format!(
             "/orgs/{}/failed_invitations",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
         );
 
         self.client.get_all_pages(&url, None).await
@@ -523,7 +529,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/orgs/{}/hooks?{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             query_
         );
 
@@ -544,7 +550,7 @@ impl Orgs {
     pub async fn list_all_webhooks(&self, org: &str) -> Result<Vec<crate::types::OrgHook>> {
         let url = format!(
             "/orgs/{}/hooks",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
         );
 
         self.client.get_all_pages(&url, None).await
@@ -570,7 +576,7 @@ impl Orgs {
     ) -> Result<crate::types::OrgHook> {
         let url = format!(
             "/orgs/{}/hooks",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
         );
 
         self.client
@@ -595,7 +601,7 @@ impl Orgs {
     pub async fn get_webhook(&self, org: &str, hook_id: i64) -> Result<crate::types::OrgHook> {
         let url = format!(
             "/orgs/{}/hooks/{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             crate::progenitor_support::encode_path(&hook_id.to_string()),
         );
 
@@ -619,7 +625,7 @@ impl Orgs {
     pub async fn delete_webhook(&self, org: &str, hook_id: i64) -> Result<()> {
         let url = format!(
             "/orgs/{}/hooks/{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             crate::progenitor_support::encode_path(&hook_id.to_string()),
         );
 
@@ -648,7 +654,7 @@ impl Orgs {
     ) -> Result<crate::types::OrgHook> {
         let url = format!(
             "/orgs/{}/hooks/{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             crate::progenitor_support::encode_path(&hook_id.to_string()),
         );
 
@@ -680,7 +686,7 @@ impl Orgs {
     ) -> Result<crate::types::WebhookConfig> {
         let url = format!(
             "/orgs/{}/hooks/{}/config",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             crate::progenitor_support::encode_path(&hook_id.to_string()),
         );
 
@@ -711,7 +717,7 @@ impl Orgs {
     ) -> Result<crate::types::WebhookConfig> {
         let url = format!(
             "/orgs/{}/hooks/{}/config",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             crate::progenitor_support::encode_path(&hook_id.to_string()),
         );
 
@@ -753,7 +759,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/orgs/{}/hooks/{}/deliveries?{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             crate::progenitor_support::encode_path(&hook_id.to_string()),
             query_
         );
@@ -785,7 +791,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/orgs/{}/hooks/{}/deliveries?{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             crate::progenitor_support::encode_path(&hook_id.to_string()),
             query_
         );
@@ -816,7 +822,7 @@ impl Orgs {
     ) -> Result<crate::types::HookDelivery> {
         let url = format!(
             "/orgs/{}/hooks/{}/deliveries/{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             crate::progenitor_support::encode_path(&hook_id.to_string()),
             crate::progenitor_support::encode_path(&delivery_id.to_string()),
         );
@@ -847,7 +853,7 @@ impl Orgs {
     ) -> Result<()> {
         let url = format!(
             "/orgs/{}/hooks/{}/deliveries/{}/attempts",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             crate::progenitor_support::encode_path(&hook_id.to_string()),
             crate::progenitor_support::encode_path(&delivery_id.to_string()),
         );
@@ -872,7 +878,7 @@ impl Orgs {
     pub async fn ping_webhook(&self, org: &str, hook_id: i64) -> Result<()> {
         let url = format!(
             "/orgs/{}/hooks/{}/pings",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             crate::progenitor_support::encode_path(&hook_id.to_string()),
         );
 
@@ -910,7 +916,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/orgs/{}/installations?{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             query_
         );
 
@@ -948,7 +954,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/orgs/{}/invitations?{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             query_
         );
 
@@ -972,7 +978,7 @@ impl Orgs {
     ) -> Result<Vec<crate::types::OrganizationInvitation>> {
         let url = format!(
             "/orgs/{}/invitations",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
         );
 
         self.client.get_all_pages(&url, None).await
@@ -1000,7 +1006,7 @@ impl Orgs {
     ) -> Result<crate::types::OrganizationInvitation> {
         let url = format!(
             "/orgs/{}/invitations",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
         );
 
         self.client
@@ -1027,7 +1033,7 @@ impl Orgs {
     pub async fn cancel_invitation(&self, org: &str, invitation_id: i64) -> Result<()> {
         let url = format!(
             "/orgs/{}/invitations/{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             crate::progenitor_support::encode_path(&invitation_id.to_string()),
         );
 
@@ -1067,7 +1073,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/orgs/{}/invitations/{}/teams?{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             crate::progenitor_support::encode_path(&invitation_id.to_string()),
             query_
         );
@@ -1093,7 +1099,7 @@ impl Orgs {
     ) -> Result<Vec<crate::types::Team>> {
         let url = format!(
             "/orgs/{}/invitations/{}/teams",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             crate::progenitor_support::encode_path(&invitation_id.to_string()),
         );
 
@@ -1146,7 +1152,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/orgs/{}/members?{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             query_
         );
 
@@ -1180,7 +1186,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/orgs/{}/members?{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             query_
         );
 
@@ -1204,8 +1210,8 @@ impl Orgs {
     pub async fn check_membership_for_user(&self, org: &str, username: &str) -> Result<()> {
         let url = format!(
             "/orgs/{}/members/{}",
-            crate::progenitor_support::encode_path(org),
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&org.to_string()),
+            crate::progenitor_support::encode_path(&username.to_string()),
         );
 
         self.client.get(&url, None).await
@@ -1228,8 +1234,8 @@ impl Orgs {
     pub async fn remove_member(&self, org: &str, username: &str) -> Result<()> {
         let url = format!(
             "/orgs/{}/members/{}",
-            crate::progenitor_support::encode_path(org),
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&org.to_string()),
+            crate::progenitor_support::encode_path(&username.to_string()),
         );
 
         self.client.delete(&url, None).await
@@ -1256,8 +1262,8 @@ impl Orgs {
     ) -> Result<crate::types::OrgMembership> {
         let url = format!(
             "/orgs/{}/memberships/{}",
-            crate::progenitor_support::encode_path(org),
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&org.to_string()),
+            crate::progenitor_support::encode_path(&username.to_string()),
         );
 
         self.client.get(&url, None).await
@@ -1293,8 +1299,8 @@ impl Orgs {
     ) -> Result<crate::types::OrgMembership> {
         let url = format!(
             "/orgs/{}/memberships/{}",
-            crate::progenitor_support::encode_path(org),
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&org.to_string()),
+            crate::progenitor_support::encode_path(&username.to_string()),
         );
 
         self.client
@@ -1321,8 +1327,8 @@ impl Orgs {
     pub async fn remove_membership_for_user(&self, org: &str, username: &str) -> Result<()> {
         let url = format!(
             "/orgs/{}/memberships/{}",
-            crate::progenitor_support::encode_path(org),
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&org.to_string()),
+            crate::progenitor_support::encode_path(&username.to_string()),
         );
 
         self.client.delete(&url, None).await
@@ -1366,7 +1372,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/orgs/{}/outside_collaborators?{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             query_
         );
 
@@ -1396,7 +1402,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/orgs/{}/outside_collaborators?{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             query_
         );
 
@@ -1424,8 +1430,8 @@ impl Orgs {
     ) -> Result<()> {
         let url = format!(
             "/orgs/{}/outside_collaborators/{}",
-            crate::progenitor_support::encode_path(org),
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&org.to_string()),
+            crate::progenitor_support::encode_path(&username.to_string()),
         );
 
         self.client.put(&url, None).await
@@ -1448,8 +1454,8 @@ impl Orgs {
     pub async fn remove_outside_collaborator(&self, org: &str, username: &str) -> Result<()> {
         let url = format!(
             "/orgs/{}/outside_collaborators/{}",
-            crate::progenitor_support::encode_path(org),
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&org.to_string()),
+            crate::progenitor_support::encode_path(&username.to_string()),
         );
 
         self.client.delete(&url, None).await
@@ -1486,7 +1492,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/orgs/{}/public_members?{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
             query_
         );
 
@@ -1510,7 +1516,7 @@ impl Orgs {
     ) -> Result<Vec<crate::types::SimpleUser>> {
         let url = format!(
             "/orgs/{}/public_members",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
         );
 
         self.client.get_all_pages(&url, None).await
@@ -1533,8 +1539,8 @@ impl Orgs {
     pub async fn check_public_membership_for_user(&self, org: &str, username: &str) -> Result<()> {
         let url = format!(
             "/orgs/{}/public_members/{}",
-            crate::progenitor_support::encode_path(org),
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&org.to_string()),
+            crate::progenitor_support::encode_path(&username.to_string()),
         );
 
         self.client.get(&url, None).await
@@ -1563,8 +1569,8 @@ impl Orgs {
     ) -> Result<()> {
         let url = format!(
             "/orgs/{}/public_members/{}",
-            crate::progenitor_support::encode_path(org),
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&org.to_string()),
+            crate::progenitor_support::encode_path(&username.to_string()),
         );
 
         self.client.put(&url, None).await
@@ -1591,8 +1597,8 @@ impl Orgs {
     ) -> Result<()> {
         let url = format!(
             "/orgs/{}/public_members/{}",
-            crate::progenitor_support::encode_path(org),
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&org.to_string()),
+            crate::progenitor_support::encode_path(&username.to_string()),
         );
 
         self.client.delete(&url, None).await
@@ -1679,7 +1685,7 @@ impl Orgs {
     ) -> Result<crate::types::OrgMembership> {
         let url = format!(
             "/user/memberships/orgs/{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
         );
 
         self.client.get(&url, None).await
@@ -1705,7 +1711,7 @@ impl Orgs {
     ) -> Result<crate::types::OrgMembership> {
         let url = format!(
             "/user/memberships/orgs/{}",
-            crate::progenitor_support::encode_path(org),
+            crate::progenitor_support::encode_path(&org.to_string()),
         );
 
         self.client
@@ -1804,7 +1810,7 @@ impl Orgs {
         let query_ = serde_urlencoded::to_string(&query_args).unwrap();
         let url = format!(
             "/users/{}/orgs?{}",
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&username.to_string()),
             query_
         );
 
@@ -1830,7 +1836,7 @@ impl Orgs {
     ) -> Result<Vec<crate::types::OrganizationSimple>> {
         let url = format!(
             "/users/{}/orgs",
-            crate::progenitor_support::encode_path(username),
+            crate::progenitor_support::encode_path(&username.to_string()),
         );
 
         self.client.get_all_pages(&url, None).await
