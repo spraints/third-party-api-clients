@@ -315,7 +315,7 @@ impl Client {
         Ok(r)
     }
 
-    async fn get<D>(&self, uri: &str, message: Option<reqwest::Body>) -> Result<D>
+    pub async fn get<D>(&self, uri: &str, message: Option<reqwest::Body>) -> Result<D>
     where
         D: serde::de::DeserializeOwned + 'static + Send,
     {
